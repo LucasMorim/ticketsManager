@@ -60,12 +60,12 @@ def ticket():
 def novo_ticket(tipo):
   
   contador = db.ultimoTicket(tipo) + 1
-  print("\nTicket de ", db.REPARACAO," criado!")
+  print("\nTicket de ", tipo," criado!")
   print("Número do ticket: ", contador)
   dados=db.ler_dados(tipo)
  
   ticket={}
-  ticket[db.DATA_CRIACAO] = db.dataFormatada()
+  ticket[db.DATA_CRIACAO] = db.dataHoraFormatada()
   dados[contador] = ticket
   db.gravar(contador,tipo, ticket)
   
@@ -74,9 +74,9 @@ def novo_ticket(tipo):
 
 def balcao():
 
-  balcao = input("\nDigite o seu balcão: ")
+  numeroBalcao = input("\nDigite o seu balcão: ")
 
-  if balcao != "1" and balcao != "2" and balcao != "3" and balcao != "4": 
+  if numeroBalcao != "1" and numeroBalcao != "2" and numeroBalcao != "3" and numeroBalcao != "4": 
     print("Digite um valor valido")
     balcao()
 
@@ -84,33 +84,38 @@ def balcao():
   print("1. Reparacao")
   print("2. Entrega")
   tipo = input("\nQual o tipo do ticket?")
+  tipoDb = ""
+  if tipo=="1":
+    tipoDb=db.REPARACAO
+  elif tipo=="2":
+    tipoDb=db.ENTREGA
+    
   numero_ticket = input("\nQual o número do ticket?")
-  ticket = db.ler_dados(db.REPARACAO)[numero_ticket]
-  if(ticket == None):
+  listaTickets = db.ler_dados(tipoDb)
+  ticket=None
+  if listaTickets == None or numero_ticket in listaTickets.keys():
+    ticket = listaTickets[numero_ticket]
+  if ticket == None:
     print("Ticket não encontrado")
     balcao()
-
-  tipoDb = ""
-  if (tipo == "1" and balcao == "4"):
+  
+  if (tipoDb == db.REPARACAO and numeroBalcao == "4"):
     print("\nEste balcão não pode atender este tipo de ticket!")
     print("Balcões de 1 a 3")
     balcao()
-  elif tipo=="1":
+  elif tipoDb == db.REPARACAO:
     balcao_reparacao(ticket)
-    tipoDb=db.REPARACAO
-  elif tipo=="2":
+  elif tipoDb == db.ENTREGA:
     balcao_entrega(ticket)
-    tipoDb=db.ENTREGA
   else:
     print("Digite um valor válido.")
     balcao()
 
-  ticket[db.BALCAO] = balcao
-  ticket[db.DATA_ATENDIMENTO] = db.dataFormatada()
+  ticket[db.BALCAO] = numeroBalcao
+  ticket[db.DATA_ATENDIMENTO] = db.dataHoraFormatada()
   ticket[db.TEMPO_ESPERA] = str(tempoDeEspera(ticket))
 
-  contador = db.ultimoTicket(tipoDb) + 1
-  db.gravar(contador, tipoDb, ticket)
+  db.gravar(numero_ticket, tipoDb, ticket)
 
 
 def balcao_reparacao(ticket):  
@@ -187,8 +192,10 @@ def gerenciamentos():
       print("6. Voltar")
       geren = int(input("\nEscolha o gerenciamento: "))
       if geren == 1:
-        f = open("TICKETS.txt", "r")
-        print(f.read())
+        dados = db.load()
+        for tipo in dados:
+          for ticket in dados[tipo]:
+            print(dados[tipo][ticket])
         input("Pressione Enter para continuar")
       elif geren == 2:
         procurarMostrar()
@@ -213,9 +220,10 @@ def organizador(obj):
 
 def procurarMostrar():
     partes = []
-
-
     contador = 0
+    
+    
+    
     with open("TICKETS.txt", "r") as f:
         dia1 = input("Digite o dia: ")
         mes1 = input("Digite o mês: ")
