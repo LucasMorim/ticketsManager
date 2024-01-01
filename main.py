@@ -69,7 +69,8 @@ def novo_ticket(tipo):
   ticket[db.DATA_CRIACAO] = db.dataHoraFormatada()
   dados[contador] = ticket
   db.gravar(contador,tipo, ticket)
-  
+  input("\nPressione Enter para continuar")
+  os.system("cls")
   sistemas()
 
 def balcao():
@@ -88,6 +89,11 @@ def balcao():
     tipoDb=db.REPARACAO
   elif tipo=="2":
     tipoDb=db.ENTREGA
+
+  if (tipoDb == db.REPARACAO and numeroBalcao == "4"):
+    print("\nEste balcão não pode atender este tipo de ticket!")
+    print("Balcões de 1 a 3")
+    balcao()
     
   numero_ticket = input("\nQual o número do ticket? ")
   listaTickets = db.ler_dados(tipoDb)
@@ -98,10 +104,7 @@ def balcao():
     print("Ticket não encontrado")
     balcao()
   
-  if (tipoDb == db.REPARACAO and numeroBalcao == "4"):
-    print("\nEste balcão não pode atender este tipo de ticket!")
-    print("Balcões de 1 a 3")
-    balcao()
+  
   elif tipoDb == db.REPARACAO:
     balcao_reparacao(ticket)
   elif tipoDb == db.ENTREGA:
@@ -115,6 +118,10 @@ def balcao():
   ticket[db.TEMPO_ESPERA] = str(tempoDeEspera(ticket))
 
   db.gravar(numero_ticket, tipoDb, ticket)
+
+  input("\nPressione Enter para continuar")
+  os.system("cls")
+
   sistemas()
 
 def balcao_reparacao(ticket):  
@@ -196,7 +203,7 @@ def gerenciamentos():
             geren = int(input("\nEscolha o gerenciamento: "))
             if geren == 1:
                 manager.relatorioGeral()
-            if geren == 2:
+            elif geren == 2:
                 data = input("Digite a data no formato AAAA-MM-DD:")
                 manager.relatorioGeralPorData(data)
             elif geren == 3:
@@ -209,14 +216,15 @@ def gerenciamentos():
                 data = input("Digite a data no formato AAAA-MM-DD:")
                 manager.relatorioReceitaPorData(data)
             elif geren == 6:
-                os.system("clear")
+                os.system("cls")
                 sistemas()
             else:
                 print("Opção inválida")
             input("\nPressione Enter para continuar")
+            os.system("cls")
         except ValueError:
             print("\nValor inválido")
             gerenciamentos()
-            
+
 
 sistemas()
