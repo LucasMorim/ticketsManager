@@ -147,7 +147,7 @@ def balcao_reparacao(ticket):
     
 def balcao_entrega(ticket):
   while True:
-    condicao = input("Qual a condição do equipamento? ")
+    condicao = input("\nQual a condição do equipamento? ")
     try:
       int(condicao)
       print("Inválido! Não coloque somente números!")
@@ -182,5 +182,41 @@ def verificacaoTempo():
   agora = datetime.now()
   return agora.hour >= 8 and agora.hour < 23
 
+def gerenciamentos():
+  
+    while True:
+        try:
+            print("\nGerenciamentos: ")
+            print("1. Relatório geral de tickets")
+            print("2. Relatório geral de tickets por data")
+            print("3. Relatório de média de espera por data")
+            print("4. Relatório de atendimento de balcões por data")   
+            print("5. Relatório de receita por data")
+            print("6. Voltar")
+            geren = int(input("\nEscolha o gerenciamento: "))
+            if geren == 1:
+                manager.relatorioGeral()
+            if geren == 2:
+                data = input("Digite a data no formato AAAA-MM-DD:")
+                manager.relatorioGeralPorData(data)
+            elif geren == 3:
+                data = input("Digite a data no formato AAAA-MM-DD:")
+                manager.relatorioMediaEsperaPorData(data)
+            elif geren == 4:
+                data = input("Digite a data no formato AAAA-MM-DD:")
+                manager.relatorioAtendBalcoesPorData(data)
+            elif geren == 5:
+                data = input("Digite a data no formato AAAA-MM-DD:")
+                manager.relatorioReceitaPorData(data)
+            elif geren == 6:
+                os.system("clear")
+                sistemas()
+            else:
+                print("Opção inválida")
+            input("\nPressione Enter para continuar")
+        except ValueError:
+            print("\nValor inválido")
+            gerenciamentos()
+            
 
 sistemas()
