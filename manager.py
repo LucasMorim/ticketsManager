@@ -36,7 +36,7 @@ def relatorioMediaEsperaPorData(pData):
                         if db.BALCAO in tkt:
                             tempEspera = tkt[db.TEMPO_ESPERA]
                             print("\tTicket: ", ticket, tkt[db.TEMPO_ESPERA])
-                            numeros = re.findall(r"\d+", tempEspera)  
+                            numeros = re.findall(r"\d+", tempEspera) 
                             sumSegundos += int(numeros[0]) * 3600
                             sumSegundos += int(numeros[1]) * 60
                             sumSegundos += int(numeros[2])
@@ -49,14 +49,13 @@ def relatorioMediaEsperaPorData(pData):
             min = mediaTempoSec // 60
             mediaTempoSec = mediaTempoSec - (min * 60)
             
-            print(int(horas), "horas, ", int(min), "minutos e ",int(mediaTempoSec), "segundos de intervalo entre atendimentos")
+            print("\n",int(horas), "horas, ", int(min), "minutos e ",int(mediaTempoSec), "segundos de intervalo entre atendimentos")
         else:
             print("Não há dados para calcular a média.")
              
     else:
         print("Não tiveram tickets nessa data")
       
-
 def relatorioAtendBalcoesPorData(pData):
     
     contagemBal = [0, 0, 0, 0]
@@ -106,7 +105,7 @@ def relatorioReceitaPorData(pData):
                             if db.VALOR in tkt:
                                 receita += tkt[db.VALOR]
                         if receita > 0:
-                            print(receita)
+                            print(receita,"€")
                         else:
                             print("Não tiveram atendimento de entregas nesta data")
             else:
