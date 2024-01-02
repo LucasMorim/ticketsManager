@@ -1,5 +1,4 @@
 import json
-import os
 from datetime import datetime
 
 REPARACAO="reparacao"
@@ -20,7 +19,7 @@ VALOR="valor"
 
 global dados
 
-#le o arquivo e devolve os dados por tipo
+#lê o arquivo e devolve os dados por tipo
 def ler_dados(tipo):
     global dados
     dados = load()
@@ -31,7 +30,7 @@ def ler_dados(tipo):
     else:
         return None
 
-#le ou cria o arquivo de dados e passa para o ler_dados
+#lê ou cria o arquivo de dados e passa para o ler_dados
 def load():
     try:
         with open(DATA_FILE, "r") as f:
@@ -46,17 +45,29 @@ def load():
 #grava e reescreve o json
 def gravar(contador, tipo, ticket):
     dados = load()
-    dados[dataAtual()][tipo][contador] = ticket
+    try:
+        dados[dataAtual()][tipo][contador] = ticket
+    except:
+        if not dataAtual() in dados.keys():
+            with open(DATA_FILE, "w") as f:
+                dados[dataAtual()] = { REPARACAO: {}, ENTREGA: {}}
+                f.write(json.dumps(dados))
     with open(DATA_FILE, "w") as f:
-       f.write(json.dumps(dados))
+        f.write(json.dumps(dados))
+    
+    
+
 
 #verifica qual o ultimo ticket criado, para n repetir o cod (apartir do len)
 def ultimoTicket(tipo):
+
     try:
         dados=load()
         if dataAtual() in dados.keys():
             lista=dados[dataAtual()][tipo]
             return len(lista.keys())
+        else:
+            return 0
     except:
         return 0
 
