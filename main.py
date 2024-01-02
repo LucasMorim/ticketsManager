@@ -53,7 +53,6 @@ def ticket():
     novo_ticket(db.ENTREGA)
 
   elif escolha == "3":
-    print("\nSaindo...")
     sistemas()
 
   else:
@@ -83,6 +82,15 @@ def balcao():
     print("Digite um valor válido")
     balcao()
 
+  dados = db.load()
+  for data in dados:
+    for tipo in dados[data]:
+      print("\n# Data:",data,"\tTipo:",tipo)
+      print("\nTicket(s) não atendidos: ")
+      for ticket in dados[data][tipo]:
+        if len(dados[data][tipo][ticket]) == 1:
+          print("\tNúmero: ", ticket, dados[data][tipo][ticket])
+
   print("\n1. Reparacao")
   print("2. Entrega")
   tipo = input("\nQual o tipo do ticket? ")
@@ -96,7 +104,9 @@ def balcao():
     print("\nEste balcão não pode atender este tipo de ticket!")
     print("Balcões de 1 a 3")
     balcao()
-    
+  
+ 
+
   numero_ticket = input("\nQual o número do ticket? ")
   listaTickets = db.ler_dados(tipoDb)
   ticket=None
@@ -105,7 +115,6 @@ def balcao():
   if ticket == None:
     print("Ticket não encontrado")
     balcao()
-  
   
   elif tipoDb == db.REPARACAO:
     balcao_reparacao(ticket)
@@ -205,7 +214,7 @@ def gerenciamentos():
             geren = int(input("\nEscolha o gerenciamento: "))
             if geren >= 2 and geren <= 5:
               while True:
-                data = input("Digite a data no formato AAAA-MM-DD:")
+                data = input("Digite a data no formato AAAA-MM-DD:  ")
                 if len(data) == 10 and data[4] == "-" and data[7] == "-":
                   if geren == 2:
                       manager.relatorioGeralPorData(data)
@@ -222,7 +231,7 @@ def gerenciamentos():
                   else:
                       print("Opção inválida")
                 else:
-                  print("Formato ou valor inválido inválido")
+                  print("\nFormato ou valor inválido inválido\n")
 
             elif geren == 1:
               manager.relatorioGeral()
