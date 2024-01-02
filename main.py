@@ -3,6 +3,7 @@ from datetime import datetime
 import db
 import manager
 
+
 def sistemas():
   
   print("\n----------Sistema de tickets----------\n")
@@ -13,12 +14,14 @@ def sistemas():
 
   escolha = input("\nO que precisa fazer? ")
   if escolha == "1":
-    
+
     if not verificacaoTempo():
       print("\nO sistema está fechado!")
       print("Volte entre as 8:00 e 23:00")
+      input("\nPressione Enter para continuar")
+      os.system("cls")
       sistemas()
-    
+
     ticket()  
 
   elif escolha == "2":
@@ -200,29 +203,37 @@ def gerenciamentos():
             print("5. Relatório de receita por data")
             print("6. Voltar")
             geren = int(input("\nEscolha o gerenciamento: "))
-            if geren == 1:
-                manager.relatorioGeral()
-            elif geren == 2:
+            if geren >= 2 and geren <= 5:
+              while True:
                 data = input("Digite a data no formato AAAA-MM-DD:")
-                manager.relatorioGeralPorData(data)
-            elif geren == 3:
-                data = input("Digite a data no formato AAAA-MM-DD:")
-                manager.relatorioMediaEsperaPorData(data)
-            elif geren == 4:
-                data = input("Digite a data no formato AAAA-MM-DD:")
-                manager.relatorioAtendBalcoesPorData(data)
-            elif geren == 5:
-                data = input("Digite a data no formato AAAA-MM-DD:")
-                manager.relatorioReceitaPorData(data)
+                if len(data) == 10 and data[4] == "-" and data[7] == "-":
+                  if geren == 2:
+                      manager.relatorioGeralPorData(data)
+                      break
+                  elif geren == 3:
+                      manager.relatorioMediaEsperaPorData(data)
+                      break
+                  elif geren == 4:
+                      manager.relatorioAtendBalcoesPorData(data)
+                      break
+                  elif geren == 5:
+                      manager.relatorioReceitaPorData(data)
+                      break
+                  else:
+                      print("Opção inválida")
+                else:
+                  print("Formato ou valor inválido inválido")
+
+            elif geren == 1:
+              manager.relatorioGeral()
             elif geren == 6:
-                os.system("cls")
-                sistemas()
-            else:
-                print("Opção inválida")
+              os.system("cls")
+              sistemas()
             input("\nPressione Enter para continuar")
             os.system("cls")
         except ValueError:
-            print("\nValor inválido")
-            gerenciamentos()
+          print("\nValor inválido")
+          gerenciamentos()
+              
 
 sistemas()
