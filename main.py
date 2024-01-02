@@ -1,7 +1,5 @@
 import os
 from datetime import datetime
-import numpy as np
-import re
 import db
 import manager
 
@@ -15,12 +13,12 @@ def sistemas():
 
   escolha = input("\nO que precisa fazer? ")
   if escolha == "1":
-    
+    '''
     if not verificacaoTempo():
       print("\nO sistema está fechado!")
       print("Volte entre as 8:00 e 23:00")
       sistemas()
-
+    '''
     ticket()  
 
   elif escolha == "2":
@@ -29,7 +27,8 @@ def sistemas():
   elif escolha == "3":
     gerenciamentos()
 
-  elif escolha == "4":  
+  elif escolha == "4":
+    os.system("cls")  
     exit()
     
   else:
@@ -225,6 +224,5 @@ def gerenciamentos():
         except ValueError:
             print("\nValor inválido")
             gerenciamentos()
-
 
 sistemas()
