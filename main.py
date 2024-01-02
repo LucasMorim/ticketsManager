@@ -13,12 +13,12 @@ def sistemas():
 
   escolha = input("\nO que precisa fazer? ")
   if escolha == "1":
-    '''
+    
     if not verificacaoTempo():
       print("\nO sistema está fechado!")
       print("Volte entre as 8:00 e 23:00")
       sistemas()
-    '''
+    
     ticket()  
 
   elif escolha == "2":
