@@ -54,9 +54,6 @@ def gravar(contador, tipo, ticket):
                 f.write(json.dumps(dados))
     with open(DATA_FILE, "w") as f:
         f.write(json.dumps(dados))
-    
-    
-
 
 #verifica qual o ultimo ticket criado, para n repetir o cod (apartir do len)
 def ultimoTicket(tipo):
@@ -75,8 +72,10 @@ def ultimoTicket(tipo):
 def dataHoraFormatada():
     return datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
+#data atual
 def dataAtual():
     return fmtData(datetime.now())
 
+#formata data atual
 def fmtData(data):
     return data.strftime("%Y-%m-%d")
