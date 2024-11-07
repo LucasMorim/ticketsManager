@@ -1,0 +1,53 @@
+{
+    "2024-01-02": {
+        "reparacao": {
+            "1": {
+                "data_criacao": "02/01/2024 15:18:53",
+                "equipamento": "Telemovel",
+                "avaria": "Ecra partido",
+                "observacao": "Nao",
+                "balcao": "3",
+                "data_atend": "02/01/2024 18:00:44",
+                "tempo_espera": "2:41:51"
+            },
+            "2": {
+                "data_criacao": "02/01/2024 17:06:51",
+                "equipamento": "a",
+                "avaria": "b",
+                "observacao": "c",
+                "balcao": "1",
+                "data_atend": "02/01/2024 17:08:20",
+                "tempo_espera": "0:01:29"
+            },
+            "3": {
+                "data_criacao": "02/01/2024 17:11:58",
+                "equipamento": "a",
+                "avaria": "b",
+                "observacao": "c",
+                "balcao": "2",
+                "data_atend": "02/01/2024 17:33:53",
+                "tempo_espera": "0:21:55"
+            }
+        },
+        "entrega": {
+            "1": {
+                "data_criacao": "02/01/2024 17:01:46",
+                "condicao": "Ruim",
+                "observacao": "nao",
+                "valor": 23.0,
+                "balcao": "1",
+                "data_atend": "02/01/2024 17:37:09",
+                "tempo_espera": "0:35:23"
+            },
+            "2": {
+                "data_criacao": "02/01/2024 17:12:13",
+                "condicao": "a",
+                "observacao": "b",
+                "valor": 33.0,
+                "balcao": "2",
+                "data_atend": "02/01/2024 17:42:32",
+                "tempo_espera": "0:30:19"
+            }
+        }
+    }
+}
